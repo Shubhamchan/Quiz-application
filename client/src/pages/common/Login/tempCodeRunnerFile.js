@@ -1,0 +1,1 @@
+<div className="flex justify-center items-center h-screen w-screen bg-primary">
