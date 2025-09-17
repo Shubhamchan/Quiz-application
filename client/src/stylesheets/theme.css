@@ -1,12 +1,12 @@
 :root {
-  --primary: #0F3460;
-  --secondary: #ff5722;
-  --success: #6fbf71;
-  --info: #00bcd4;
-  --warning: #e47943;
-  --danger: #f44336;
-  --light: #f1f1f1;
-  --dark: #212121;
+  --primary: #c7de00;;  
+  --secondary: #FF6F61;
+  --success: #00C49A; 
+  --info: #3ca7b5;     
+  --warning: #FFA000;  
+  --danger: #FF5252;   
+  --light: #f9fafb67;     
+  --dark: #1E1E2F;   
 }
 
 .bg-primary{

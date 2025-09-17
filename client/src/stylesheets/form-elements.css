@@ -1,28 +1,42 @@
-input,
-select {
-  height: 40px !important;
-  padding: 10px 20px !important;
-  border: 2px solid rgb(131, 130, 130) !important;
+:root {
+  --primary: #007bff;
+}
+
+form input,
+form select {
+  height: 50px;
+  padding: 10px 20px;
+  border: 2px solid #838282;
   width: 100%;
-  border-radius: 2px !important;
+  border-radius: 2px;
 }
 
 .ant-form-item {
-  margin-bottom: 5px !important;
+  margin-bottom: 5px;
 }
 
 button {
-  padding: 0px 25px;
+  padding: 0 25px;
   border-radius: 2px;
-  height: 40px !important;
+  height: 50px;
 }
+
 .primary-contained-btn {
   background-color: var(--primary);
-  color: white;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 30px;
+  font-weight: 600;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: oblique;
+  transition: all 0.3s ease-in-out;
+}
+
+.primary-contained-btn:hover {
+  background-color: #0056b3; /* darker shade or desired hover effect */
 }
 
 .primary-outlined-btn {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.52);
   color: var(--primary);
   border: 2px solid var(--primary);
 }

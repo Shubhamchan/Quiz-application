@@ -1,49 +1,60 @@
-
-.text-2xl{
-    font-size: 1.5rem;
-    line-height: 2rem;
+.text-2xl {
+    font-size: 1.75rem;      
+    line-height: 2.25rem;
+    font-weight: 700;       
 }
-.text-xl{
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+.text-xl {
+    font-size: 1.375rem;
+    line-height: 1.9rem;
+    font-weight: 600;
 }
-.text-lg{
+.text-lg {
     font-size: 1.125rem;
-    line-height: 1.5rem;
+    line-height: 1.6rem;
 }
-.text-md{
+.text-md {
     font-size: 1rem;
-    line-height: 1.25rem;
+    line-height: 1.4rem;
 }
-.text-sm{
+.text-sm {
     font-size: 0.875rem;
-    line-height: 1rem;
+    line-height: 1.2rem;
 }
-.text-xs{
+.text-xs {
     font-size: 0.75rem;
-    line-height: 0.875rem;
+    line-height: 1rem;
+    letter-spacing: 0.01em;  
 }
 
-h1{
-    margin-bottom: 0px !important;
+h1 {
+    margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+    font-weight: 700;        
 }
-.text-center{
+
+.text-center {
     text-align: center;
 }
-a{
-    color: var(--primary) !important;
 
-}
-a:hover{
+a {
     color: var(--primary) !important;
+    text-decoration: none;  
+    transition: color 0.25s ease-in-out;
+}
+a:hover {
+    color: var(--secondary) !important;
     text-decoration: underline !important;
 }
 
-i{
+i {
     font-size: 18px !important;
     cursor: pointer !important;
+    transition: transform 0.2s ease-in-out;
 }
-.underline{
+i:hover {
+    transform: scale(1.15); 
+}
+
+.underline {
     text-decoration: underline !important;
 }

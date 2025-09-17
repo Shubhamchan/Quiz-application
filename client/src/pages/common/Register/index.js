@@ -1,7 +1,7 @@
-import { Form, message } from "antd";
+import { Form, message, Select } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { registerUser } from "../../../apicalls/users";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 
@@ -44,7 +44,12 @@ function Register() {
             <Form.Item name="password" label="Password">
               <input type="password" />
             </Form.Item>
-
+            <Form.Item name="role" label="Role">
+                <Select defaultValue="user">
+                <Select.Option value="user">User</Select.Option>
+                <Select.Option value="admin">Admin</Select.Option>
+              </Select>
+            </Form.Item>
             <div className="flex flex-col gap-2">
               <button
                 type="submit"

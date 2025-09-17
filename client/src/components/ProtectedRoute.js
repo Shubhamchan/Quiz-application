@@ -86,7 +86,7 @@ function ProtectedRoute({ children }) {
       dispatch(HideLoading());
       if (response.success) {
         dispatch(SetUser(response.data));
-        if (response.data.isAdmin) {
+        if (response.data.role==="admin") {
           setMenu(adminMenu);
         } else {
           setMenu(userMenu);
@@ -171,7 +171,7 @@ function ProtectedRoute({ children }) {
               <div className="flex gap-1 items-center">
                 <h1 className="text-md text-white">{user?.name}</h1>
               </div>
-              <span>Role : {user?.isAdmin ? "Admin" : "User"}</span>
+              <span>Role : {user?.role==="admin" ? "Admin" : "User"}</span>
             </div>
           </div>
           <div className="content">{children}</div>
