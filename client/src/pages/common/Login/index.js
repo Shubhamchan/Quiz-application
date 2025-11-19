@@ -14,7 +14,8 @@ function Login() {
       dispatch(HideLoading());
       if (response.success) {
         message.success(response.message);
-        localStorage.setItem("token", response.data);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user",JSON.stringify(response.data.user));
         window.location.href = "/";
       } else {
         message.error(response.message);

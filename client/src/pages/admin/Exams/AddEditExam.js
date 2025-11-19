@@ -18,6 +18,11 @@ const { TabPane } = Tabs;
 function AddEditExam() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+   const user=JSON.parse(localStorage.getItem("user"));
+  if(user.role==='user'){
+    navigate('/');
+  }
+
   const [examData, setExamData] = React.useState(null);
   const [showAddEditQuestionModal, setShowAddEditQuestionModal] =
     React.useState(false);

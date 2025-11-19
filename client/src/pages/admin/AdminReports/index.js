@@ -2,6 +2,7 @@ import React from "react";
 import PageTitle from "../../../components/PageTitle";
 import { message, Table } from "antd";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import { getAllReports } from "../../../apicalls/reports";
 import { useEffect } from "react";

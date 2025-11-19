@@ -8,6 +8,11 @@ import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 
 function Exams() {
   const navigate = useNavigate();
+  const user=JSON.parse(localStorage.getItem("user"));
+  if(user.role==='user'){
+    navigate('/');
+  }
+
   const [exams, setExams] = React.useState([]);
   const dispatch = useDispatch();
 

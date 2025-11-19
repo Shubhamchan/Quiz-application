@@ -6,6 +6,23 @@ import { SetUser } from "../redux/usersSlice.js";
 import { useNavigate } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../redux/loaderSlice";
 
+
+function decodeJwt(token) {
+  try {
+    const payload = token.split(".")[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded;
+  } catch (e) {
+    return null;
+  }
+}
+
+function isTokenExpired(token) {
+  if (!token) return true;
+  const decoded = decodeJwt(token);
+  if (!decoded || !decoded.exp) return true;
+  return decoded.exp * 1000 < Date.now();
+}
 function ProtectedRoute({ children }) {
   const { user } = useSelector((state) => state.users);
   const [menu, setMenu] = useState([]);
@@ -26,18 +43,13 @@ function ProtectedRoute({ children }) {
       icon: <i className="ri-bar-chart-line"></i>,
       onClick: () => navigate("/user/reports"),
     },
-    // {
-    //   title: "Profile",
-    //   paths: ["/profile"],
-    //   icon: <i className="ri-user-line"></i>,
-    //   onClick: () => navigate("/profile"),
-    // },
     {
       title: "Logout",
       paths: ["/logout"],
       icon: <i className="ri-logout-box-line"></i>,
       onClick: () => {
         localStorage.removeItem("token");
+        dispatch(SetUser(null));
         navigate("/login");
       },
     },
@@ -62,18 +74,13 @@ function ProtectedRoute({ children }) {
       icon: <i className="ri-bar-chart-line"></i>,
       onClick: () => navigate("/admin/reports"),
     },
-    // {
-    //   title: "Profile",
-    //   paths: ["/profile"],
-    //   icon: <i className="ri-user-line"></i>,
-    //   onClick: () => navigate("/profile"),
-    // },
     {
       title: "Logout",
       paths: ["/logout"],
       icon: <i className="ri-logout-box-line"></i>,
       onClick: () => {
         localStorage.removeItem("token");
+        dispatch(SetUser(null));
         navigate("/login");
       },
     },
@@ -86,7 +93,7 @@ function ProtectedRoute({ children }) {
       dispatch(HideLoading());
       if (response.success) {
         dispatch(SetUser(response.data));
-        if (response.data.role==="admin") {
+        if (response.data.role === "admin") {
           setMenu(adminMenu);
         } else {
           setMenu(userMenu);
@@ -95,19 +102,37 @@ function ProtectedRoute({ children }) {
         message.error(response.message);
       }
     } catch (error) {
-      navigate("/login");
+      localStorage.removeItem("token");
+      dispatch(SetUser(null));
       dispatch(HideLoading());
+      navigate("/login");
       message.error(error.message);
     }
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      getUserData();
-    } else {
+    const token = localStorage.getItem("token");
+
+    // If no token, force login
+    if (!token) {
+      dispatch(SetUser(null));
       navigate("/login");
+      return;
     }
-  }, []);
+
+    // If token expired, clear and redirect
+    if (isTokenExpired(token)) {
+      localStorage.removeItem("token");
+      dispatch(SetUser(null));
+      message.error("Session expired. Please login again.");
+      navigate("/login");
+      return;
+    }
+
+    // valid token -> fetch user data
+    getUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once on mount
 
   const activeRoute = window.location.pathname;
 
@@ -133,7 +158,7 @@ function ProtectedRoute({ children }) {
 
   return (
     <div className="layout">
-      <div className="flex gap-2 w-full h-full h-100">
+      <div className="flex gap-2 w-full h-100">
         <div className="sidebar">
           <div className="menu">
             {menu.map((item, index) => {
@@ -171,7 +196,7 @@ function ProtectedRoute({ children }) {
               <div className="flex gap-1 items-center">
                 <h1 className="text-md text-white">{user?.name}</h1>
               </div>
-              <span>Role : {user?.role==="admin" ? "Admin" : "User"}</span>
+              <span>Role : {user?.role === "admin" ? "Admin" : "User"}</span>
             </div>
           </div>
           <div className="content">{children}</div>
